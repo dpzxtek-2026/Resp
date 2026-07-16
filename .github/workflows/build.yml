@@ -1,0 +1,32 @@
+name: Build Android Release APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Code ophalen
+      uses: actions/checkout@v4
+
+    - name: Java instellen
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Gradle uitvoerbaar maken
+      run: chmod +x ./gradlew
+
+    - name: APK Builden (Release)
+      run: ./gradlew assembleRelease
+
+    - name: Release APK Opslaan als Download
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-apk
+        path: app/build/outputs/apk/release/
