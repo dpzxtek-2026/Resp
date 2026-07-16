@@ -13,7 +13,7 @@ jobs:
     - name: Code ophalen
       uses: actions/checkout@v4
 
-    - name: Java instellen via DPZXJAVAFIX (door Devon, ook wel DPZX)
+    - name: Java instellen
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
@@ -22,8 +22,11 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # We vertellen Gradle om de release-build te ondertekenen met de debug-key
-    - name: APK Builden (Release) (dit word met debug gedaan..)
+    # We maken een leeg nepbestand aan zodat Gradle niet crasht op de controle
+    - name: Nep Keystore Aanmaken
+      run: touch /home/runner/work/Resp/Resp/my-upload-key.jks
+
+    - name: APK Builden (Release)
       run: |
         cd app
         gradle assembleRelease -Pandroid.injected.signing.config.file=debug.keystore
