@@ -1,4 +1,4 @@
-name: Build Android Release APK
+name: Build Android APK
 
 on:
   push:
@@ -22,17 +22,14 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # We maken een leeg nepbestand aan zodat Gradle niet crasht op de controle
-    - name: Nep Keystore Aanmaken
-      run: touch /home/runner/work/Resp/Resp/my-upload-key.jks
-
-    - name: APK Builden (Release)
+    # We bouwen een Debug APK om alle wachtwoord-verplichtingen te omzeilen
+    - name: APK Builden
       run: |
         cd app
-        gradle assembleRelease -Pandroid.injected.signing.config.file=debug.keystore
+        gradle assembleDebug
 
-    - name: Release APK Opslaan als Download
+    - name: APK Opslaan als Download
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-apk
-        path: app/app/build/outputs/apk/release/
+        name: app-debug-apk
+        path: app/app/build/outputs/apk/debug/
