@@ -22,8 +22,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # We bouwen een Debug APK om alle wachtwoord-verplichtingen te omzeilen
+    # We voegen java.awt.headless=true toe om de KSP-crash te voorkomen
     - name: APK Builden
+      env:
+        GRADLE_OPTS: -Djava.awt.headless=true
       run: |
         cd app
         gradle assembleDebug
