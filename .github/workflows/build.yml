@@ -13,7 +13,7 @@ jobs:
     - name: Code ophalen
       uses: actions/checkout@v4
 
-    - name: Java instellen voor de APK file (JAVA VERSION BY DPZX)
+    - name: Java instellen via DPZXJAVAFIX (door Devon, ook wel DPZX)
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
@@ -22,11 +22,11 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # We navigeren direct naar de app-map en bouwen daar met het standaard gradle-commando
-    - name: APK Builden (Release)
+    # We vertellen Gradle om de release-build te ondertekenen met de debug-key
+    - name: APK Builden (Release) (dit word met debug gedaan..)
       run: |
         cd app
-        gradle assembleRelease
+        gradle assembleRelease -Pandroid.injected.signing.config.file=debug.keystore
 
     - name: Release APK Opslaan als Download
       uses: actions/upload-artifact@v4
