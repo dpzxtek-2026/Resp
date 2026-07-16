@@ -19,15 +19,18 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    # Setup Gradle zonder dat de gradlew wrapper in je repo hoeft te staan
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
+    # We voegen build-root-directory toe zodat Gradle de juiste bestanden vindt
     - name: APK Builden (Release)
-      run: gradle assembleRelease
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        build-root-directory: ./app
+        arguments: assembleRelease
 
     - name: Release APK Opslaan als Download
       uses: actions/upload-artifact@v4
       with:
         name: app-release-apk
-        path: app/build/outputs/apk/release/
+        path: app/app/build/outputs/apk/release/
