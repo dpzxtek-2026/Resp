@@ -22,7 +22,19 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    # We voegen java.awt.headless=true toe om de KSP-crash te voorkomen
+    # We maken de sleutel nu direct aan in de app-map zelf
+    - name: Debug Keystore Genereren
+      run: |
+        keytool -genkeypair -v \
+          -keystore ./app/debug.keystore \
+          -alias androiddebugkey \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000 \
+          -storepass android \
+          -keypass android \
+          -dname "CN=Android Debug, O=Android, C=US"
+
     - name: APK Builden
       env:
         GRADLE_OPTS: -Djava.awt.headless=true
