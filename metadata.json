@@ -1,0 +1,6 @@
+{
+  "name": "dpzxbrowse!",
+  "description": "A high-octane neon-styled web browser designed with high-fidelity performance, offline-first tabs, customized bookmarks and history management, a high-performance interactive Gemini AI Assistant panel, and a direct gateway to DPZXPROJECT.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
