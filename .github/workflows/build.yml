@@ -20,13 +20,13 @@ jobs:
         java-version: '17'
 
     - name: Gradle uitvoerbaar maken
-      run: chmod +x ./gradlew
+      run: chmod +x ./app/gradlew
 
     - name: APK Builden (Release)
-      run: ./gradlew assembleRelease
+      run: ./app/gradlew assembleRelease --project-dir ./app
 
     - name: Release APK Opslaan als Download
       uses: actions/upload-artifact@v4
       with:
         name: app-release-apk
-        path: app/build/outputs/apk/release/
+        path: app/app/build/outputs/apk/release/
